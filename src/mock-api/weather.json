@@ -1,0 +1,48 @@
+/* 
+Filtered json from backend - data structure wanted
+
+"condition" - defined at https://openweathermap.org/weather-conditions
+*/
+
+{
+    "code": "200",              /* cod */
+    "forecastsDay": [
+        {
+            "day": 0,   
+            "tempMax": 18,      /* calculated from all 3hr forecasts */
+            "tempMin": 12
+        },
+        {
+            "day": 1,
+            "tempMax": 19,
+            "tempMin": 10
+        },
+        {
+            "day": 2,
+            "tempMax": 22,
+            "tempMin": 12
+        },
+        {
+            "day": 3,
+            "tempMax": 23,
+            "tempMin": 11
+        },
+        {
+            "day": 4,
+            "tempMax": 20,
+            "tempMin": 15
+        }
+    ],
+    "forecasts3hrs": [
+        {
+            "timeInterval": "0",
+            "condition": "cloudy",  /* list[0].weather.main */
+            "cloudcover": 60        /* list[0].clouds.all */
+        },
+        {
+            "timeInterval": "3",
+            "condition": "rain",
+            "cloudcover": 80
+        }
+    ]
+}
