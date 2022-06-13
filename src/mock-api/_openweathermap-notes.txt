@@ -1,16 +1,6 @@
-/* Sample API response from 
- https://openweathermap.org/forecast5#JSON - 3hrs / 5days 
-*/
 
-/*
-Possibility longer-term of adding the following params from an API call to a 2nd provider too
-https://www.weatherapi.com/docs/
-	hourly 14 days
-		cloud cover
-		chance of rain
-		chance of snow
-		rain amount
-*/
+Sample API response from 
+https://openweathermap.org/forecast5#JSON - 3hrs / 5days 
 
 {
     "cod": "200",
@@ -104,3 +94,11 @@ https://www.weatherapi.com/docs/
       "sunset": 1647367441
     }
 }
+
+
+Possibility longer-term of adding the following params from an API call to a 2nd provider too
+https://www.weatherapi.com/docs/
+	hourly 14 days
+		chance of rain
+		chance of snow
+		rain amount
