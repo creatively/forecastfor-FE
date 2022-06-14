@@ -10,73 +10,191 @@ export const weatherData: WeatherJsonInterface = {
     "location": "London",
     "forecastDay": [
         {
-        "day": 0,
-        "dayDesc": "Monday",
+        "dayName": "Mon",
         "tempMax": "20"
         },{
-        "day": 1,
-        "dayDesc": "Tuesday",
+        "dayName": "Tue",
         "tempMax": "21"
         },{
-        "day": 2,
-        "dayDesc": "Wednesday",
+        "dayName": "Wed",
         "tempMax": "24"
         },{
-        "day": 3,
-        "dayDesc": "Thursday",
+        "dayName": "Thu",
         "tempMax": "24"
         },{
-        "day": 4,
-        "dayDesc": "Friday",
+        "dayName": "Fri",
         "tempMax": "19"
         }
     ],
     "forecasts3hrs": [
         {
-        "time": 0,
-        "timeDesc": "2022-03-15 12:00:00",
-        "conditions": "Clouds",
-        "clouds": 85
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 85
+            },{
+            "daylight": true,
+            "precipitation": "light rain",
+            "clouds": 65
+            },{
+            "daylight": true,
+            "precipitation": "rain",
+            "clouds": 40
+            },{
+            "daylight": false,
+            "precipitation": 'heavy rain',
+            "clouds": 10
         },{
-        "time": 3,
-        "timeDesc": "2022-03-15 15:00:00",
-        "conditions": "Clouds",
-        "clouds": 65
+            "daylight": false,
+            "precipitation": 'light showers',
+            "clouds": 10
+            },{
+            "daylight": false,
+            "precipitation": 'showers',
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": 'heavy showers',
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 70
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 85
+            },{
+            "daylight": true,
+            "precipitation": "sleet",
+            "clouds": 65
+            },{
+            "daylight": true,
+            "precipitation": "light snow",
+            "clouds": 40
+            },{
+            "daylight": false,
+            "precipitation": "snow",
+            "clouds": 10
         },{
-        "time": 6,
-        "timeDesc": "2022-03-15 18:00:00",
-        "conditions": "Clouds",
-        "clouds": 40
+            "daylight": false,
+            "precipitation": "heavy snow",
+            "clouds": 10
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 70
+            },{
+            "daylight": true,
+            "precipitation": "thunderstorm",
+            "clouds": 80
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 85
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 65
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 40
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
         },{
-        "time": 9,
-        "timeDesc": "2022-03-15 21:00:00",
-        "conditions": "Clouds",
-        "clouds": 10
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 70
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 85
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 65
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 40
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
         },{
-        "time": 12,
-        "timeDesc": "2022-03-16 00:00:00",
-        "conditions": "Clouds",
-        "clouds": 10
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 70
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 85
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 65
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 40
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
         },{
-        "time": 15,
-        "timeDesc": "2022-03-16 03:00:00",
-        "conditions": "Clouds",
-        "clouds": 0
-        },{
-        "time": 18,
-        "timeDesc": "2022-03-16 06:00:00",
-        "conditions": "Clouds",
-        "clouds": 0
-        },{
-        "time": 21,
-        "timeDesc": "2022-03-16 09:00:00",
-        "conditions": "Clouds",
-        "clouds": 70
-        },{
-        "time": 24,
-        "timeDesc": "2022-03-16 12:00:00",
-        "conditions": "Clouds",
-        "clouds": 80
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 10
+            },{
+            "daylight": false,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 0
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 70
+            },{
+            "daylight": true,
+            "precipitation": null,
+            "clouds": 80
         }
     ]
     }
