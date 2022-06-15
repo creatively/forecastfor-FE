@@ -1,21 +1,20 @@
 import './App.css';
-import Header from './components/header';
-import Search from './components/search';
-import Weather from './components/weather';
-import Footer from './components/footer';
+import Header from './components/Header';
+import Search from './components/Search';
+import Forecast from './components/Forecast';
+import Footer from './components/Footer';
 
 
 function App() {
 
   return (
     <div className="App">
-      Hi from React's App.tsx
       <Header />
       <Search />
-      <Weather />
+      <Forecast />
       <Footer />
     </div>
-  );
+  )
 }
 
 export default App;

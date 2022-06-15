@@ -5,9 +5,9 @@ export default interface WeatherJsonInterface {
         "dayName": 'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun',
         "tempMax": string
     }[],
-    "forecasts3hrs": {
-        "daylight": boolean,
-        "precipitation": null|'light rain'|'rain'|'heavy rain'|'light showers'|'showers'|'heavy showers'|'sleet'|'light snow'|'snow'|'heavy snow'|'thunderstorm',
+    "forecastDayThreeHourColumns": {
+        "daylight": 'yes'|'no'|'partly',
+        "precipitation": 'dry'|'light rain'|'rain'|'heavy rain'|'light showers'|'showers'|'heavy showers'|'sleet'|'snow'|'snow showers'|'thunderstorm',
         "clouds": number
     }[]
 }

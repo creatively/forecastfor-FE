@@ -1,0 +1,103 @@
+
+.forecast-days {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    margin: 100px -0.5rem;
+}
+
+.forecast-day { 
+    background: #fff;
+    border: 1px solid #fff;
+    flex: 1;
+}
+
+    .forecast-day__dayname {
+        width: 100%;
+        display: grid;
+        line-height: 1;
+        margin-top:8px;
+    }
+    .forecast-day__tempmax {
+        font-size: 2.5rem;
+        line-height: 1.4;
+    }
+    .three-hour-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+        .three-hours-column {
+            position: relative;
+            margin: 0 1px;
+            height: 100px;
+            background-color: #ffdd00;
+            border-bottom: 8px solid #ffdd00;
+        }
+
+/* 'dry'|'light rain'|'rain'|'heavy rain'|'light showers'|'showers'|'heavy showers'|'sleet'|'light snow'|'snow'|'heavy snow'|'thunderstorm'
+*/
+.three-hours-column.light-rain {
+    border-bottom-color: #cbedf7;
+}
+.three-hours-column.rain {
+    border-bottom-color: #02b2e8;
+}
+.three-hours-column.heavy-rain {
+    border-bottom-color: #016380;
+}
+.three-hours-column.light-showers {
+    border-bottom-color: #cbedf7;
+    border-style: dotted;
+}
+.three-hours-column.showers {
+    border-bottom-color: #02b2e8;
+    border-style: dotted;
+}
+.three-hours-column.heavy-showers {
+    border-bottom-color: #016380;
+    border-style: dotted;
+}
+.three-hours-column.sleet {
+    border-bottom-color: #cedade;
+}
+.three-hours-column.light-snow {
+    border-bottom-color:
+}
+.three-hours-column.snow {
+    border-bottom-color:
+}
+.three-hours-column.heavy-snow {
+    border-bottom-color:
+}
+.three-hours-column.thunderstorm {
+    border-bottom-color:
+}
+
+
+            .cloud {
+                background: #f6f6f6;
+                height: 70px;
+            }
+            .opacity-daylight {
+                display: none;
+            }
+            .opacity-partly-light {
+                position: absolute;
+                top:0;
+                left:0;
+                height: 108px;
+                width:100%;
+                background-color: rgb(0,0,0, 0.9);
+                opacity: 0.2;
+            }
+            .opacity-night {
+                position: absolute;
+                top:0;
+                left:0;
+                height: 108px;
+                width:100%;
+                background-color: rgb(0,0,0, 0.9);
+                opacity: 0.4;
+            }
