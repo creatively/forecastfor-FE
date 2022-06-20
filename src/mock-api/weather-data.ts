@@ -6,7 +6,7 @@ This is a mock of json from the weather api, after it's been 'processed' into mo
 import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
 
 export const weatherData: WeatherJsonInterface = {
-    "code": "200",
+    "code": 200,
     "location": "London",
     "forecastDay": [
         {

@@ -1,5 +1,5 @@
 export default interface WeatherJsonInterface {
-    "code": string,
+    "code": number,
     "location": string,
     "forecastDay": {
         "dayName": 'Mon'|'Tue'|'Wed'|'Thu'|'Fri'|'Sat'|'Sun',
