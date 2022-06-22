@@ -1,37 +1,31 @@
 import React, { useState } from 'react'
-import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
-import { weatherData } from '../mock-api/weather-data';
+//import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
+//import { weatherData } from '../mock-api/weather-data';
 import { useEffectOnce } from '../custom-hooks/useEffectOnce';
 import useStore from '../store';
 import ForecastDay from './ForecastDay';
 import './css/forecast.css'
-
-//import temp from '../interfaces/temp';
-const c = (txt: any) => console.log(txt)
-
 interface Temp {
-    myText: string
+    myString: string;
+    myFunction: () => void;
 }
 
-function set(property: any, value: any): void {
-    useStore.setState(property, value)
-}
-
+const c = (txt: any) => console.log(txt)
 
 
 
 export default function Forecast() {
-    const myText = useStore(state => state.myText)
+    
+    const store = useStore()
 
     useEffectOnce(() => {
-        set('myText','hello')
         
- 
     });
 
 
     return (
         <ul className="forecast-days">
+            { store.myString }
             <ForecastDay day={ {} }/>
         </ul>
     )   
@@ -52,10 +46,9 @@ const useStore = create(set => ({
     set({ posts: await response.json() })
   }
 }))
-*/
 
 
-/*
+
 SUGGESTED BY AUTOPILOT (in store.tsx) :
 const useStore = create<WeatherJsonInterface>((set, get) => ({
     weatherData: {} as WeatherJsonInterface,
