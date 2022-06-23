@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-//import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
 //import { weatherData } from '../mock-api/weather-data';
+//import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
 import { useEffectOnce } from '../custom-hooks/useEffectOnce';
 import useStore from '../store';
-import ForecastDay from './ForecastDay';
-import './css/forecast.css'
-interface Temp {
-    myString: string;
-    myFunction: () => void;
-}
+import ForecastDays from './ForecastDays';
+import ForecastDayThreeHourColumn from './ForecastDayThreeHourColumn'
+import './css/forecast.css';
 
 const c = (txt: any) => console.log(txt)
+const random = (num: number) => (Math.random() + 1).toString(36).substring(num)
 
+interface Day {
+    "dayName": 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun',
+    "tempMax": number
+}
 
 
 export default function Forecast() {
@@ -22,38 +24,17 @@ export default function Forecast() {
         
     });
 
-
     return (
-        <ul className="forecast-days">
-            { store.myString }
-            <ForecastDay day={ {} }/>
-        </ul>
-    )   
+        <>
+            <h1>Forecast { random(7) }</h1>
+            
+            <ForecastDays />
+                
+            <ul className="forecast">
+                {store.forecastDayThreeHourColumns.map(() => (
+                    <ForecastDayThreeHourColumn />
+                ))}
+            </ul>
+        </>
+    )
 }
-
-
-
-
-
-/*
-https://www.thisdot.co/blog/zustand-for-state-management
-
-FETCHING DATA FROM API
-const useStore = create(set => ({
-  posts: {},
-  getPosts: async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    set({ posts: await response.json() })
-  }
-}))
-
-
-
-SUGGESTED BY AUTOPILOT (in store.tsx) :
-const useStore = create<WeatherJsonInterface>((set, get) => ({
-    weatherData: {} as WeatherJsonInterface,
-        getWeatherData: async () => {
-            const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=b6907d289e10d714a6e88b30761fae22')
-            set({ weatherData: await response.json() })
-        }
-*/
