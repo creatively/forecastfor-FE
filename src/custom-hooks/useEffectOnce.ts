@@ -1,4 +1,5 @@
-// Third party custom hook to 'fix' the new double-render change in React 18
+// Third party custom hook to 'fix' the new 
+//    double - render change in React 18
 import { useRef, useEffect, useState } from 'react';
 
 export const useEffectOnce = (effect: () => void | (() => void)) => {
