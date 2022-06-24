@@ -5,7 +5,7 @@
         {
             "dayName": "Mon",
             "tempMax": 20,
-            "three-hourly": [
+            "forecastThreeHourly": [
                 {
                     "daylight": "yes",
                     "precipitation": "dry",
@@ -27,7 +27,7 @@
         },{
             "dayName": "Tue",
             "tempMax": 21,
-            "three-hourly": [
+            "forecastThreeHourly": [
                 {
                     "daylight": "no",
                     "precipitation": "light showers",
@@ -65,7 +65,7 @@
         },{
             "dayName": "Wed",
             "tempMax": 24,
-            "three-hourly": [
+            "forecastThreeHourly": [
                 {
                     "daylight": "no",
                     "precipitation": "snow showers",
@@ -107,7 +107,7 @@
         },{
             "dayName": "Thu",
             "tempMax": 24,
-            "three-hourly": [
+            "forecastThreeHourly": [
                 {
                     "daylight": "no",
                     "precipitation": "dry",
@@ -145,7 +145,7 @@
         },{
             "dayName": "Fri",
             "tempMax": 19,
-            "three-hourly": [
+            "forecastThreeHourly": [
                 {
                     "daylight": "no",
                     "precipitation": "dry",
