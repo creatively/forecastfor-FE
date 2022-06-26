@@ -1,83 +1,205 @@
 import create from "zustand";
-//import { WeatherData, WeatherJsonInterface }  from './interfaces/WeatherJsonInterface'
+import { ForecastData } from "./interfaces/ForecastInterface";
 
-// https://raw.githubusercontent.com/creatively/forecastfor-FE/main/src/mock-api/weather-data.json
-
-interface WeatherJsonInterface {
-    "code": number,
-    "location": string,
-    "forecastDays": {
-        "dayName": 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun',
-        "tempMax": number
-    }[],
-    "forecastDayThreeHourColumns": {
-        "daylight": 'yes' | 'no' | 'partly',
-        "precipitation": 'dry' | 'light rain' | 'rain' | 'heavy rain' | 'light showers' | 'showers' | 'heavy showers' | 'sleet' | 'snow' | 'snow showers' | 'thunderstorm',
-        "clouds": number
-    }[]
-}
-
-
-const useStore = create<WeatherJsonInterface>((set) => (
+const useStore = create<ForecastData>((set) => (
     {
-        "code": 201,
-        "location": 'London',
+        "code": 200,
+        "location": "London",
         "forecastDays": [
             {
-                "dayName": 'Wed',
-                "tempMax": 27
+                "dayName": "Mon",
+                "tempMax": 20,
+                "forecastThreeHourlyColumns": [
+                    {
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 85
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "light rain",
+                        "clouds": 65
+                    },{
+                        "daylight": "partly",
+                        "precipitation": "rain",
+                        "clouds": 40
+                    },{
+                        "daylight": "no",
+                        "precipitation": "heavy rain",
+                        "clouds": 10
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "snow",
+                        "clouds": 40
+                    },{
+                        "daylight": "no",
+                        "precipitation": "snow showers",
+                        "clouds": 10
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "heavy showers",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "heavy showers",
+                        "clouds": 0
+                    }
+                ]
             },{
-                "dayName": 'Thu',
-                "tempMax": 28
+                "dayName": "Tue",
+                "tempMax": 21,
+                "forecastThreeHourlyColumns": [
+                    {
+                        "daylight": "no",
+                        "precipitation": "light showers",
+                        "clouds": 10
+                    },{
+                        "daylight": "no",
+                        "precipitation": "showers",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "heavy showers",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 70
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 85
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "sleet",
+                        "clouds": 65
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "snow",
+                        "clouds": 40
+                    },{
+                        "daylight": "no",
+                        "precipitation": "snow showers",
+                        "clouds": 10
+                    }
+                ]
             },{
-                "dayName": 'Fri',
-                "tempMax": 22
+                "dayName": "Wed",
+                "tempMax": 24,
+                "forecastThreeHourlyColumns": [
+                    {
+                        "daylight": "no",
+                        "precipitation": "snow showers",
+                        "clouds": 10
+                    },{
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 70
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "thunderstorm",
+                        "clouds": 80
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "thunderstorm",
+                        "clouds": 85
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 65
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 40
+                    }
+                ]
             },{
-                "dayName": 'Sat',
-                "tempMax": 22
+                "dayName": "Thu",
+                "tempMax": 24,
+                "forecastThreeHourlyColumns": [
+                    {
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 10
+                    },{
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 70
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 85
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 65
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 40
+                    },{
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 10
+                    }
+                ]
             },{
-                "dayName": 'Sun',
-                "tempMax": 24
-            }
-        ],
-        "forecastDayThreeHourColumns": [
-            {
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 15
-            },{
-                "daylight": 'yes',
-                "precipitation": 'rain',
-                "clouds": 25
-            },{
-                "daylight": 'yes',
-                "precipitation": 'rain',
-                "clouds": 55
-            },{
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 45
-            },{
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 0
-            },{
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 0
-            },{
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 20
-            },{
-                "daylight": 'yes',
-                "precipitation": 'dry',
-                "clouds": 10
+                "dayName": "Fri",
+                "tempMax": 19,
+                "forecastThreeHourlyColumns": [
+                    {
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 10
+                    },{
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 0
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 70
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 85
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 65
+                    },{
+                        "daylight": "yes",
+                        "precipitation": "dry",
+                        "clouds": 40
+                    },{
+                        "daylight": "no",
+                        "precipitation": "dry",
+                        "clouds": 10
+                    }
+                ]
             }
         ]
     }
 ));
-
 
 export default useStore;
 

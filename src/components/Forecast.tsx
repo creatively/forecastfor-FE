@@ -1,40 +1,30 @@
-import React, { useState } from 'react'
-//import { weatherData } from '../mock-api/weather-data';
-//import WeatherJsonInterface from '../interfaces/WeatherJsonInterface';
 import { useEffectOnce } from '../custom-hooks/useEffectOnce';
 import useStore from '../store';
 import ForecastDays from './ForecastDays';
-import ForecastDayThreeHourColumn from './ForecastDayThreeHourColumn'
 import './css/forecast.css';
 
 const c = (txt: any) => console.log(txt)
-const random = (num: number) => (Math.random() + 1).toString(36).substring(num)
-
-interface Day {
-    "dayName": 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun',
-    "tempMax": number
-}
 
 
 export default function Forecast() {
     
-    const store = useStore()
-
+    // const store = useStore()
+     
     useEffectOnce(() => {
-        
+        // onload code
+
+        // "store" currently populated in store.js
+        // prob best move it in here once it becomes a fetch call
+        // instead of hardcoded.
+
+        //maybe custom-hook ?? const useStoredFetchedData = (url, store,  sliceName) => {        // ?? 
+        // ../custom-hooks/useForecastDataAPI ??
     });
 
     return (
         <>
-            <h1>Forecast { random(7) }</h1>
-            
+            <h1>Forecast</h1>
             <ForecastDays />
-                
-            <ul className="forecast">
-                {store.forecastDayThreeHourColumns.map(() => (
-                    <ForecastDayThreeHourColumn />
-                ))}
-            </ul>
         </>
     )
 }

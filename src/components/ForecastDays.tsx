@@ -1,13 +1,8 @@
-import ForecastDayThreeHourColumns from './ForecastDayThreeHourColumns';
+import { ForecastDay, ForecastThreeHourlyColumn } from "../interfaces/ForecastInterface";
 import useStore from '../store';
+import ForecastThreeHourlyColumns from "./ForecastThreeHourlyColumns";
 
-interface Day {
-    "dayName": 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun',
-    "tempMax": number
-}
-
-
-const random = (num: number): any => (Math.random() + 1).toString(36).substring(num)
+const random = (): string => (Math.random() + 1).toString(36).substring(7)
 
 export default function ForecastDays() {
 
@@ -16,14 +11,16 @@ export default function ForecastDays() {
     return (
 
         <ul className="forecast-days">
-            {store.forecastDays.map((forecastDay: Day) => (
+            {store.forecastDays.map((forecastDay: ForecastDay) => (
 
-
-            <li key={ random(7) } className="forecast-day">
-                <span>{forecastDay.dayName}</span>
-                <h3>{forecastDay.tempMax}</h3>
-            </li>
-            
+                <li key={random()} className="forecast-day">
+                    <div>
+                        <span className="day-name">{forecastDay.dayName}</span>
+                        <span className="temp-max">{forecastDay.tempMax}</span>
+                        <ForecastThreeHourlyColumns forecastThreeHourlyColumns={forecastDay.forecastThreeHourlyColumns}/>
+                    </div>
+                </li>
+ 
             ))}
         </ul>
         

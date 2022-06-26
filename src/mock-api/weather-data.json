@@ -5,7 +5,7 @@
         {
             "dayName": "Mon",
             "tempMax": 20,
-            "forecastThreeHourly": [
+            "forecastThreeHourlyColumns": [
                 {
                     "daylight": "yes",
                     "precipitation": "dry",
@@ -22,12 +22,28 @@
                     "daylight": "no",
                     "precipitation": "heavy rain",
                     "clouds": 10
+                },{
+                    "daylight": "yes",
+                    "precipitation": "snow",
+                    "clouds": 40
+                },{
+                    "daylight": "no",
+                    "precipitation": "snow showers",
+                    "clouds": 10
+                },{
+                    "daylight": "yes",
+                    "precipitation": "heavy showers",
+                    "clouds": 0
+                },{
+                    "daylight": "yes",
+                    "precipitation": "heavy showers",
+                    "clouds": 0
                 }
             ]
         },{
             "dayName": "Tue",
             "tempMax": 21,
-            "forecastThreeHourly": [
+            "forecastThreeHourlyColumns": [
                 {
                     "daylight": "no",
                     "precipitation": "light showers",
@@ -65,7 +81,7 @@
         },{
             "dayName": "Wed",
             "tempMax": 24,
-            "forecastThreeHourly": [
+            "forecastThreeHourlyColumns": [
                 {
                     "daylight": "no",
                     "precipitation": "snow showers",
@@ -98,16 +114,12 @@
                     "daylight": "yes",
                     "precipitation": "dry",
                     "clouds": 40
-                },{
-                    "daylight": "no",
-                    "precipitation": "dry",
-                    "clouds": 10
                 }
             ]
         },{
             "dayName": "Thu",
             "tempMax": 24,
-            "forecastThreeHourly": [
+            "forecastThreeHourlyColumns": [
                 {
                     "daylight": "no",
                     "precipitation": "dry",
@@ -145,7 +157,7 @@
         },{
             "dayName": "Fri",
             "tempMax": 19,
-            "forecastThreeHourly": [
+            "forecastThreeHourlyColumns": [
                 {
                     "daylight": "no",
                     "precipitation": "dry",
