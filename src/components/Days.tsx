@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DataDay, Data3Hrs } from "../interfaces/ForecastInterfaces";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ColumnDay from "./ColumnDay";
 import Column3Hrs from "./Column3Hrs";
 
@@ -9,13 +11,6 @@ interface Props {
 }
 
 export default function Days({ data }: Props) {
-
-// issue occurs when first mapping an array received as a prop
-    // the array no longer has the array methods it had
-    // items can still be obtained using array[2],
-    // but unable to '.map' or '.length' etc..
-
-
 
     return (
 
