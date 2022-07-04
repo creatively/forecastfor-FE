@@ -1,30 +1,37 @@
-import { useEffectOnce } from '../custom-hooks/useEffectOnce';
-import useStore from '../store';
-import ForecastDays from './ForecastDays';
-import './css/forecast.css';
-
-const c = (txt: any) => console.log(txt)
-
+import { useState } from 'react'
+import { useEffectOnce } from '../custom-hooks/useEffectOnce'
+import Days from './Days'
+import './css/forecast.css'
+import axios from 'axios'
+import { DataDay } from '../interfaces/ForecastInterfaces'
 
 export default function Forecast() {
-    
-    // const store = useStore()
-     
+
+    const [data, setData] = useState<DataDay[]>([])
+    const [loader, setLoader] =useState(false)
+
     useEffectOnce(() => {
-        // onload code
-
-        // "store" currently populated in store.js
-        // prob best move it in here once it becomes a fetch call
-        // instead of hardcoded.
-
-        //maybe custom-hook ?? const useStoredFetchedData = (url, store,  sliceName) => {        // ?? 
-        // ../custom-hooks/useForecastDataAPI ??
+        const apiUrl: string = `https://raw.githubusercontent.com/creatively/forecastfor-FE/main/src/mock-api/weather-data.json`;
+    
+        (async () => {
+            setLoader(true)
+            try {
+                const response = await axios.get(apiUrl);
+                const forecast = response.data.forecastDays
+                setData(forecast)
+                setLoader(false)
+                console.log(response.data.forecastDays);
+            } catch (error) {
+                console.error(error);
+            }
+        })()
     });
 
     return (
         <>
             <h1>Forecast</h1>
-            <ForecastDays />
+
+            {loader ? <div>....Loading</div> : <Days data={data} />}
         </>
     )
 }

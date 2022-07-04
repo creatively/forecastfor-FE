@@ -14,21 +14,21 @@
     flex: 1;
 }
 
-    .forecast-day__dayname {
+    .day-name {
         width: 100%;
         display: grid;
         line-height: 1;
         margin-top:8px;
     }
-    .forecast-day__tempmax {
+    .temp-max {
         font-size: 2.5rem;
         line-height: 1.4;
     }
-    .three-hour-columns {
+    .forecast-three-hourly-columns {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
-        .three-hours-column {
+        .forecast-three-hourly-column {
             position: relative;
             margin: 0 1px;
             height: 100px;
@@ -75,29 +75,43 @@
     border-bottom-color:
 }
 
+.daylight-yes {
+    opacity: 1;
+}
+.daylight-partly {
+    opacity: 0.5;
+}
+.daylight-no {
+    opacity: 0.2;
+}
 
-            .cloud {
-                background: #f6f6f6;
-                height: 70px;
-            }
-            .opacity-daylight {
-                display: none;
-            }
-            .opacity-partly-light {
-                position: absolute;
-                top:0;
-                left:0;
-                height: 108px;
-                width:100%;
-                background-color: rgb(0,0,0, 0.9);
-                opacity: 0.2;
-            }
-            .opacity-night {
-                position: absolute;
-                top:0;
-                left:0;
-                height: 108px;
-                width:100%;
-                background-color: rgb(0,0,0, 0.9);
-                opacity: 0.4;
-            }
+
+    .clouds {
+        position: absolute;
+        top:0;
+        left:0;
+        background: #f6f6f6;
+        width:100%;
+        height: 70px;
+    }
+    .opacity-daylight {
+        display: none;
+    }
+    .opacity-partly-light {
+        position: absolute;
+        top:0;
+        left:0;
+        height: 108px;
+        width:100%;
+        background-color: rgb(0,0,0, 0.9);
+        opacity: 0.2;
+    }
+    .opacity-night {
+        position: absolute;
+        top:0;
+        left:0;
+        height: 108px;
+        width:100%;
+        background-color: rgb(0,0,0, 0.9);
+        opacity: 0.4;
+    }
