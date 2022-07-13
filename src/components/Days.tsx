@@ -1,19 +1,23 @@
+import { useState } from 'react'
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DataDay, Data3Hrs } from "../interfaces/ForecastInterfaces";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ColumnDay from "./ColumnDay";
 import Column3Hrs from "./Column3Hrs";
+import { useEffectOnce } from 'react-use';
+
+const c = (txt: any) => console.log(txt)
 
 const random = (): string => (Math.random() + 1).toString(36).substring(7)
 
 interface Props {
-    data: DataDay[]
+    data: DataDay[],
+    loaded: boolean
 }
 
-export default function Days({ data }: Props) {
+export default function Days({ data, loaded }: Props) {
 
     return (
-
         <ul className="forecast-days" >
             {data.map((day: DataDay) => (
   
@@ -23,22 +27,17 @@ export default function Days({ data }: Props) {
                         <span className="temp-max">{day.tempMax}</span>
 
                         <ul className="forecast-three-hourly-columns">
-                            { day.forecastThreeHourlyColumns?.map(({ clouds, precipitation, daylight }: Data3Hrs) => (
-
-                                <li key={random()} className="forecast-three-hourly-column">
-                                    <div className="clouds">{ clouds }</div>
-                                    <div className="precipitation">{ precipitation }</div>
-                                    <div className="daylight">{ daylight }</div>
-                                </li>
-
-                            )) }
+                            { day.forecastThreeHourlyColumns.map((column: Data3Hrs) => (
+                                <Column3Hrs clouds={column.clouds} 
+                                            precipitation={column.precipitation}
+                                            daylight={column.daylight}
+                                />     
+                            ))}                   
                         </ul>
-
                     </div>
                 </li>
  
             ))}
         </ul>
-        
     )
 }

@@ -1,21 +1,32 @@
-import { Data3Hrs } from "../interfaces/ForecastInterfaces";
+import { Daylight, Precipitation } from "../interfaces/ForecastInterfaces";
 import CSS from 'csstype'
 
 const random = (): string => (Math.random() + 1).toString(36).substring(7)
 
-export default function Column3Hrs({ ...column3Hrs }: Data3Hrs) {
+interface PropsData3Hrs {
+    clouds: number,
+    precipitation: Precipitation,
+    daylight: Daylight
+}
+
+
+export default function Column3Hrs({ clouds, precipitation, daylight }: PropsData3Hrs) {
 
     const styleClouds: CSS.Properties = {
-        height: `${column3Hrs.clouds}px`
+        height: `${clouds}px`
     }
+    const styleDaylight: CSS.Properties = {
+        position: `absolute`,
+        bottom: 0,
+        height: `50px`,
+        opacity: 0.5
+    }
+ 
 
     return ( 
-
         <li key={random()} className="forecast-three-hourly-column">
-            <div className="clouds" style={styleClouds}>{ column3Hrs.clouds }</div>
-            <div className="precipitation">{ column3Hrs.precipitation }</div>
-            <div className="daylight">{ column3Hrs.daylight }</div>
+            <div className="clouds" style={styleClouds}></div>
+            <div style={styleDaylight}></div>
         </li>
-
     )
 }
