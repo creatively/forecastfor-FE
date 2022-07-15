@@ -20,7 +20,7 @@ export default function Days({ data, loaded }: Props) {
     return (
         <ul className="forecast-days" >
             {data.map((day: DataDay) => (
-  
+
                 <li key={random()} className="forecast-day">
                     <div>
                         <span className="day-name">{day.dayName}</span>
@@ -31,9 +31,10 @@ export default function Days({ data, loaded }: Props) {
                                 <Column3Hrs clouds={column.clouds} 
                                             precipitation={column.precipitation}
                                             daylight={column.daylight}
-                                />     
+                                />  
                             ))}                   
                         </ul>
+                        <div className="daylight"></div>
                     </div>
                 </li>
  

@@ -34,7 +34,7 @@ export default function Forecast() {
                             setLoader(false)
                             setData(response.data)
                             setLoaded(true)
-                        }, 1000)
+                        }, 100)
                     })
                     .catch((error) => {
                         apiErrorHandler(error)

@@ -12,6 +12,9 @@
     background: #fff;
     flex: 1;
     max-width: 100px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+
 }
 
     .day-name {
@@ -27,27 +30,27 @@
     .forecast-three-hourly-columns {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        z-index: 2;
+        border-top: 3px solid gold;
     }
-    .forecast-three-hourly-columns:after {
+    .daylight::after {
         content: "";
         position: absolute;
-        top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background-image: linear-gradient(to right, rgba(0,0,0,0.3) 10%,rgba(0,0,0,0) 20%,rgba(0,0,0,0) 80%,rgba(0,0,0,0.3) 90%);
+        height: 191px;
+        background-image: linear-gradient(to right, rgba(0,0,0,0.05) 15%,rgba(0,0,0,0) 35%,rgba(0,0,0,0) 65%,rgba(0,0,0,0.05) 85%);
         opacity: .9;
         z-index: 1;
+        bottom: 0;
     }
 
         .forecast-three-hourly-column {
             position: relative;
             margin: 0;
             height: 100px;
-            background-color: lightblue;
-            border-bottom: 8px solid #fff;
-            border-right: 1px solid white;
+            background-color: gold;
+            border-bottom: 8px solid;
+            border-right: 1px solid #f6f6f6;
         }
         .forecast-day:first-child  .forecast-three-hourly-columns {
 
@@ -59,50 +62,57 @@
 
 /* 'dry'|'light rain'|'rain'|'heavy rain'|'light showers'|'showers'|'heavy showers'|'sleet'|'light snow'|'snow'|'heavy snow'|'thunderstorm'
 */
-.three-hours-column.light-rain {
+.forecast-three-hourly-column.dry {
+    border-bottom-color: white;
+}
+.forecast-three-hourly-column.light-rain {
     border-bottom-color: #cbedf7;
 }
-.three-hours-column.rain {
+.forecast-three-hourly-column.rain {
     border-bottom-color: #02b2e8;
 }
-.three-hours-column.heavy-rain {
+.forecast-three-hourly-column.heavy-rain {
     border-bottom-color: #016380;
 }
-.three-hours-column.light-showers {
+.forecast-three-hourly-column.light-showers {
     border-bottom-color: #cbedf7;
     border-style: dotted;
 }
-.three-hours-column.showers {
+.forecast-three-hourly-column.showers {
     border-bottom-color: #02b2e8;
     border-style: dotted;
 }
-.three-hours-column.heavy-showers {
+.forecast-three-hourly-column.heavy-showers {
     border-bottom-color: #016380;
     border-style: dotted;
 }
-.three-hours-column.sleet {
+.forecast-three-hourly-column.sleet {
     border-bottom-color: #cedade;
 }
-.three-hours-column.light-snow {
+.forecast-three-hourly-column.light-snow {
     border-bottom-color:
 }
-.three-hours-column.snow {
+.forecast-three-hourly-column.snow {
     border-bottom-color:
 }
-.three-hours-column.heavy-snow {
+.forecast-three-hourly-column.heavy-snow {
     border-bottom-color:
 }
-.three-hours-column.thunderstorm {
+.forecast-three-hourly-column.thunderstorm {
     border-bottom-color:
 }
 
     .clouds {
         position: absolute;
         top:0;
-        left:0;
-        background: #f6f6f6;
+        background: #fff;
         width:100%;
-        height: 70px;
+    }
+    .sun {
+        background: gold;
+        position: absolute;
+        bottom:0;
+        width:100%;
     }
     .daylight-yes {
         display: none;
