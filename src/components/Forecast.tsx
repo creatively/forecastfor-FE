@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Loader } from './Loader'
 import { useEffectOnce } from '../custom-hooks/useEffectOnce'
 import { DataDay } from '../interfaces/ForecastInterfaces'
@@ -11,18 +11,19 @@ export default function Forecast() {
 
     const [data, setData] = useState<DataDay[]>([])
     const [loader, setLoader] = useState(false)
-    const [loaded, setLoaded] = useState(false)
     const [apiError, setApiError] = useState(false)
     
     useEffectOnce(() => {
         const apiErrorHandler = (error: any) => {
             console.log(error || '502 - Local API unable to contact remote API')
             setLoader(false)
-            setLoaded(false)
             setApiError(true)
         }
 
-        const apiUrl: string = `http://localhost:8080/forecast`;
+        const latitude = `51`
+        const longitude = `0`
+        
+        const apiUrl: string = `http://localhost:8080/forecast?lat=${latitude}&lon=${longitude}`;
 
         (async () => {
             setLoader(true)
@@ -30,11 +31,10 @@ export default function Forecast() {
                 await axios
                     .get(apiUrl)
                     .then((response) => {
-                        setTimeout(() => {
-                            setLoader(false)
-                            setData(response.data)
-                            setLoaded(true)
-                        }, 100)
+                        setLoader(false)
+                        const incomingData: DataDay[] = response.data
+console.log(incomingData)
+                        setData(incomingData)
                     })
                     .catch((error) => {
                         apiErrorHandler(error)
@@ -44,12 +44,22 @@ export default function Forecast() {
             }
         })()
     });
+/*
+    function locationLookup(event: React.ChangeEvent<HTMLInputElement>): any {
+        event.preventDefault()
+        const value: string = inputLocation.current.value
+        console.log(`--- locationLookup`)
+        console.log(`${value}`)
+        // debouce(apiCall())
+    }
+*/
 
     return (
         <>
             <h1>Forecast</h1>
-            {loader ? <Loader/> : ''}
-            {apiError ? <div>....ERROR CALLING API....</div> : <Days data={data} loaded={loaded} />}
+            { loader ? <Loader/> : ``}
+            { apiError ? <div>....ERROR CALLING API....</div> : `` }
+            { !apiError && !loader ? <Days data={data} /> : `` }
         </>
     )
 }

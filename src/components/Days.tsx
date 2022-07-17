@@ -12,10 +12,9 @@ const random = (): string => (Math.random() + 1).toString(36).substring(7)
 
 interface Props {
     data: DataDay[],
-    loaded: boolean
 }
 
-export default function Days({ data, loaded }: Props) {
+export default function Days({ data }: Props) {
 
     return (
         <ul className="forecast-days" >
