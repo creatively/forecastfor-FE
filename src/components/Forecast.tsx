@@ -23,10 +23,6 @@ export default function Forecast({ city }: ICity) {
     // ---------------- API :  TEXT --> CITY -----------------
     // ---------------- API :  CITY --> LATLON -----------------
     function getLatLon() {
-
-        console.log(`getting latlon for city : ${city}`)
-
-
         const result: LatLon = { 
             lat: `51.3`,
             lon: `3.1`
@@ -44,13 +40,12 @@ export default function Forecast({ city }: ICity) {
     const [ data, setData ] = useState<DataDay[]>([])
 
 
-    // loaded
+    // onload
     useEffectOnce(() => {
     });
 
     // city changes
     useEffect(() => {
-        console.log(`---city has changed to be ${city}`)
         getLatLon()
     }, [ city ])
 
