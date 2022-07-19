@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Loader } from './Loader'
 import { useEffectOnce } from '../custom-hooks/useEffectOnce'
 import { DataDay } from '../interfaces/ForecastInterfaces'
@@ -6,53 +6,90 @@ import axios from 'axios'
 import Days from './Days'
 import './css/forecast.css'
 
+interface ICity {
+    city: string
+}
 
-export default function Forecast() {
+interface LatLon {
+    lat: string,
+    lon: string
+}
 
-    const [data, setData] = useState<DataDay[]>([])
-    const [loader, setLoader] = useState(false)
-    const [apiError, setApiError] = useState(false)
-    
-    useEffectOnce(() => {
-        const apiErrorHandler = (error: any) => {
-            console.log(error || '502 - Local API unable to contact remote API')
-            setLoader(false)
-            setApiError(true)
+
+
+
+export default function Forecast({ city }: ICity) {
+
+    // ---------------- API :  TEXT --> CITY -----------------
+    // ---------------- API :  CITY --> LATLON -----------------
+    function getLatLon() {
+
+        console.log(`getting latlon for city : ${city}`)
+
+
+        const result: LatLon = { 
+            lat: `51.3`,
+            lon: `3.1`
         }
-
-        const latitude = `51`
-        const longitude = `0`
-        
-        const apiUrl: string = `http://localhost:8080/forecast?lat=${latitude}&lon=${longitude}`;
-
-        (async () => {
-            setLoader(true)
-            try {
-                await axios
-                    .get(apiUrl)
-                    .then((response) => {
-                        setLoader(false)
-                        const incomingData: DataDay[] = response.data
-console.log(incomingData)
-                        setData(incomingData)
-                    })
-                    .catch((error) => {
-                        apiErrorHandler(error)
-                    })
-            } catch (error) {
-                console.error(error);
-            }
-        })()
-    });
-/*
-    function locationLookup(event: React.ChangeEvent<HTMLInputElement>): any {
-        event.preventDefault()
-        const value: string = inputLocation.current.value
-        console.log(`--- locationLookup`)
-        console.log(`${value}`)
-        // debouce(apiCall())
+        return result
     }
-*/
+
+
+    // generic
+    const [ loader, setLoader ] = useState(false)
+    const [ apiError, setApiError ] = useState(false)
+    // getLatLon
+    const [ latlon, setLatlon ] = useState<LatLon>({lat: ``,lon: ``})
+    // getForecast
+    const [ data, setData ] = useState<DataDay[]>([])
+
+
+    // loaded
+    useEffectOnce(() => {
+    });
+
+    // city changes
+    useEffect(() => {
+        console.log(`---city has changed to be ${city}`)
+        getLatLon()
+    }, [ city ])
+
+    // latlon changes
+    useEffect(() => {
+        getForecast()
+    }, [ latlon ])
+
+    
+
+
+
+
+    // ---------------- API :  LATLON --> WEATHER -----------------
+    function getForecast() {
+        const lat = latlon.lat
+        const lon = latlon.lon
+        
+        if (lat !== `` && lon !== ``) {
+            const apiUrl: string = `http://localhost:8080/forecast?lat=${latlon.lat}&lon=${latlon.lon}`;
+
+            (async () => {
+                setLoader(true)
+                try {
+                    const response = await axios.get(apiUrl)
+                    setData(response.data)
+                    setLoader(false)
+                } catch (error) {
+                    console.log(error || 'Error : The local API was unable to get data from the remote weather API')
+                    setLoader(false)
+                    setApiError(true)
+                }
+            })()
+        }
+    }
+    // -------------------------APIs END----------------------------
+
+    
+
 
     return (
         <>

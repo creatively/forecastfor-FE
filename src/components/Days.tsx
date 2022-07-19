@@ -17,6 +17,8 @@ interface Props {
 export default function Days({ data }: Props) {
 
     return (
+        <>
+
         <ul className="forecast-days" >
             {data.map((day: DataDay) => (
 
@@ -39,5 +41,6 @@ export default function Days({ data }: Props) {
  
             ))}
         </ul>
+        </>
     )
 }
