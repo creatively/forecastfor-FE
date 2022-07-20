@@ -1,0 +1,22 @@
+.search-box-custom {
+    font-size:16px;
+}
+    .inputbox {
+        height: 26px;
+    }
+
+    ul.city-options--hidden {
+        display: none;
+    }
+
+    ul.city-options-visible {
+        display: block;
+    }
+
+    .city-option {
+        cursor: pointer;
+    }
+
+    .error-message {
+        color: orangered
+    }

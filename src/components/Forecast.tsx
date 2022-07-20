@@ -6,66 +6,45 @@ import axios from 'axios'
 import Days from './Days'
 import './css/forecast.css'
 
-interface ICity {
-    city: string
-}
-
-interface LatLon {
+interface ICityDetails {
+    label: string,
     lat: string,
     lon: string
 }
 
+interface IForecastProps {
+    cityDetails :{ cityDetails: ICityDetails }
+}
 
 
-
-export default function Forecast({ city }: ICity) {
-
-    // ---------------- API :  TEXT --> CITY -----------------
-    // ---------------- API :  CITY --> LATLON -----------------
-    function getLatLon() {
-        const result: LatLon = { 
-            lat: `51.3`,
-            lon: `3.1`
-        }
-        return result
-    }
-
+export default function Forecast({ label, lat, lon }: any) {
 
     // generic
     const [ loader, setLoader ] = useState(false)
     const [ apiError, setApiError ] = useState(false)
-    // getLatLon
-    const [ latlon, setLatlon ] = useState<LatLon>({lat: ``,lon: ``})
+
     // getForecast
     const [ data, setData ] = useState<DataDay[]>([])
 
 
     // onload
-    useEffectOnce(() => {
-    });
-
-    // city changes
     useEffect(() => {
-        getLatLon()
-    }, [ city ])
 
-    // latlon changes
-    useEffect(() => {
-        getForecast()
-    }, [ latlon ])
+        /*
+        NEXT: Need to link the incoming changes in 
+            label/lat/lon with the API call
+        */
+        console.log(`logged from useEffect in Forecast.tsx`)
 
-    
-
-
+        //getForecast()
+    }, [ lat ]);
 
 
     // ---------------- API :  LATLON --> WEATHER -----------------
     function getForecast() {
-        const lat = latlon.lat
-        const lon = latlon.lon
         
         if (lat !== `` && lon !== ``) {
-            const apiUrl: string = `http://localhost:8080/forecast?lat=${latlon.lat}&lon=${latlon.lon}`;
+            const apiUrl: string = `http://localhost:8080/forecast?lat=${lat}&lon=${lon}`;
 
             (async () => {
                 setLoader(true)
@@ -84,8 +63,6 @@ export default function Forecast({ city }: ICity) {
     // -------------------------APIs END----------------------------
 
     
-
-
     return (
         <>
             <h1>Forecast</h1>
