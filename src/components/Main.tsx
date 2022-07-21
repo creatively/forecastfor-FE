@@ -6,7 +6,9 @@ import Forecast from './Forecast';
 interface ICityDetails {
     label: string,
     lat: string,
-    lon: string
+    lon: string,
+    flag: string,
+    regionCode: string
 }
 
 interface IForecastProps {

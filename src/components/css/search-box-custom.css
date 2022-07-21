@@ -1,21 +1,75 @@
 .search-box-custom {
     font-size:16px;
+    text-align: left;
+    padding-left:10px;
+    padding-right:10px;
+    min-width: 240px;
+    max-width: 700px;
+    margin: 0 auto;
 }
     .inputbox {
-        height: 26px;
+        height: 28px;
+        padding-left: 38px;
+        min-width: 90%;
+        max-width: 680px;
+        margin: 0 auto;
+        font-size:16px;
+    }
+
+    .loader-container {
+        position: relative;
+        text-align: center;
+        height: 0;
+        width:0;
+    }
+
+    .loader-image {
+        position: absolute;
+        margin-right: 10px;
+        top: -29px;
+        left: 8px;
+        height: 23px;
     }
 
     ul.city-options--hidden {
         display: none;
     }
 
-    ul.city-options-visible {
+    ul.city-options--visible {
+        position: absolute;
         display: block;
+        background-color: white;
+        opacity: 0.95;
+        padding-right: 20px;
     }
 
-    .city-option {
-        cursor: pointer;
-    }
+        .city-option {
+            margin-top:2px;
+            margin-left: 11px;
+            cursor: pointer;
+        }
+        .city-option--lastone {
+            margin-left: 11px;
+            opacity: 0.15
+        }
+        .city-option--lastbutone {
+            margin-left: 11px;
+            opacity: 0.4
+        }
+        .city-option:hover .label {
+            text-decoration: underline rgb(100, 100, 100);
+        }
+            .flag {
+                top:1px;
+                height: 13px;
+                width: 20px;
+                margin-right: 10px;
+            }
+            .regionCode {
+                margin-left:8px;
+                color: #aaa;
+                font-size:14px;
+            }
 
     .error-message {
         color: orangered
