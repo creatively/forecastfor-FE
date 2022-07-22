@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDebounce } from 'use-debounce';
-import './css/search-box-custom.css'
 import randomKey from './RandomKey'
+import './css/search-box-custom.css'
 
 interface ICityDetails {
     label: string,
@@ -28,10 +28,64 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     const [ showApiCallLoaderImage, setShowApiCallLoaderImage ] = useState<boolean>(false)
     const [ showGreenTick, setShowGreenTick ] = useState<boolean>(false)
 
+    let [ cityOptionWithFocus, setCityOptionWithFocus ] = useState(0)
+    const cityOptionElementRefs = useRef<any[]>([
+        React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()
+    ])
+    const searchBoxRef = useRef<any>()
+    const inputBoxRef = useRef<any>()
+
     const maxNumberOfOptions = 7
-    const imageLoader = 'https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif'
-    const imageTick = `https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Yes_Check_Circle.svg/240px-Yes_Check_Circle.svg.png`
-    const imageDefaultLoader = `https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Note.svg/240px-Note.svg.png`
+    const imageIconLoader = 'https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif'
+    const imageIconTick = `https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Yes_Check_Circle.svg/240px-Yes_Check_Circle.svg.png`
+    const imageIconGlobe = `https://upload.wikimedia.org/wikipedia/commons/e/e4/Globe.png`
+
+
+
+    function handleKeyPress(event: React.KeyboardEvent<HTMLElement>): void {
+        const keyPressed = event.code
+
+        const keyEventFunctions = {
+            arrowUp: () => {
+                if (cityOptionWithFocus > 0) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus-1)
+            },
+            arrowDown: () => {
+                if (cityOptionWithFocus < maxNumberOfOptions-1) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus+1)
+            },
+            enter: () => {
+                const keyboardSelectedCityObject = citiesList[cityOptionWithFocus]
+
+                setChosenCity(keyboardSelectedCityObject)
+                setInputLetters(keyboardSelectedCityObject.label)
+                setOptionsVisible(false)
+            },
+            escape: () => {
+                setOptionsVisible(false)
+                searchBoxRef.current.blur()                
+            },
+            other: () => {}
+        }
+
+        keyPressed === 'ArrowUp'    ? keyEventFunctions.arrowUp() :
+        keyPressed === 'ArrowDown'  ? keyEventFunctions.arrowDown() :
+        keyPressed === 'Enter'      ? keyEventFunctions.enter() : 
+        keyPressed === 'Escape'     ? keyEventFunctions.escape() : keyEventFunctions.other()
+    }
+
+    useEffect(() => {
+        inputBoxRef.current.focus()
+    }, [])
+
+    useEffect(() => {
+        if (optionsVisible) setCityOptionWithFocus(0)
+    }, [ optionsVisible ])
+
+    useEffect(() => {
+        if (cityOptionElementRefs.current[cityOptionWithFocus].current) {
+            cityOptionElementRefs.current[cityOptionWithFocus].current.style.backgroundColor='#f5f5f5'
+        }
+    }, [ cityOptionWithFocus ])
+
 
     // get list of cities from remote api
     useEffect(() => {
@@ -90,7 +144,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     }
 
     function handleSetChosenCity(event: any): void {
-    const liElement: HTMLLIElement = event.target
+        const liElement: HTMLLIElement = event.target
         const chosenCity: ICityDetails = {
             label: liElement.textContent || ``,
             lat: liElement.getAttribute('data-lat') || ``,
@@ -101,12 +155,19 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         setChosenCity(chosenCity)
         setInputLetters(chosenCity.label)
         setOptionsVisible(false)
+
+        console.log(cityOptionElementRefs.current[1].current)
     }
 
 
     return (
-        <div className="search-box-custom">
-            <input className="inputbox" value={inputLetters} onChange={handleInputLettersChange} />
+        <div className="search-box-custom" ref={searchBoxRef}>
+            <input className="inputbox"
+                ref={inputBoxRef} 
+                value={inputLetters} 
+                onChange={handleInputLettersChange} 
+                onKeyDown={handleKeyPress} 
+            />
 
             <div className="loader-container">
                 {(showApiCallLoaderImage || showGreenTick)
@@ -121,12 +182,12 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
                         height="24" width="24" 
                         src={
                             showApiCallLoaderImage
-                                ? imageLoader :
+                                ? imageIconLoader :
                             showGreenTick 
-                                ? imageTick : 
-                            imageDefaultLoader
+                                ? imageIconTick : 
+                            imageIconGlobe
                         }/>
-                    :   <img className='loader-image' alt='type here' height="24" width="24" src={imageDefaultLoader} />
+                    :   <img className='loader-image' alt='type here' height="24" width="24" src={imageIconGlobe} />
                 }
             </div>
 
@@ -135,11 +196,12 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
                     citiesList.map((cityOption, index) => (
                         <li data-temp={`${index.toString()}`}
                             className={ 
-                                (index === maxNumberOfOptions - 2) ? `city-option--lastbutone` : 
-                                (index === maxNumberOfOptions - 1) ? `city-option--lastone` :
-                                (index < 5) ? `city-option`: ``
+                                (index === maxNumberOfOptions - 1) ? `city-option city-option--lastone` :
+                                (index === maxNumberOfOptions - 2) ? `city-option city-option--lastbutone` : 
+                                (index < maxNumberOfOptions - 2) ? `city-option`: ``
                             }
                             key={randomKey()} 
+                            ref={cityOptionElementRefs.current[index]}
                             data-lat={cityOption.lat} 
                             data-lon={cityOption.lon} 
                             onClick={handleSetChosenCity}

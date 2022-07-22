@@ -1,4 +1,5 @@
 .search-box-custom {
+    position: relative;
     font-size:16px;
     text-align: left;
     padding-left:10px;
@@ -37,16 +38,21 @@
 
     ul.city-options--visible {
         position: absolute;
+        top: 32px;
         display: block;
         background-color: white;
-        opacity: 0.95;
         padding-right: 20px;
+        border: 1px solid #ccc;
+        border-top:0;
+        padding-top:8px;
     }
 
         .city-option {
             margin-top:2px;
             margin-left: 11px;
+            padding:2px 0px;
             cursor: pointer;
+            border-bottom: 1px dotted #ddd;
         }
         .city-option--lastone {
             margin-left: 11px;
@@ -56,8 +62,9 @@
             margin-left: 11px;
             opacity: 0.4
         }
-        .city-option:hover .label {
-            text-decoration: underline rgb(100, 100, 100);
+        .city-option:hover .label,
+        .city-option:focus .label {
+            background: #f5f5f5;
         }
             .flag {
                 top:1px;
