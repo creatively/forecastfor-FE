@@ -18,6 +18,7 @@ interface ISearchBoxProps {
 
 export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) {
 
+    // useStates
     const [ inputLetters, setInputLetters ] = useState<string>(``)
     const [ lettersReadyForApiCall ] = useDebounce(inputLetters, 1000)
     const [ citiesList, setCitiesList ] = useState<ICityDetails[]>([])
@@ -27,51 +28,23 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     const [ errorLog, setErrorLog ] = useState<string>(``)
     const [ showApiCallLoaderImage, setShowApiCallLoaderImage ] = useState<boolean>(false)
     const [ showGreenTick, setShowGreenTick ] = useState<boolean>(false)
-
     let [ cityOptionWithFocus, setCityOptionWithFocus ] = useState(0)
+    
+    // useRefs
     const cityOptionElementRefs = useRef<any[]>([
         React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef(), React.createRef()
     ])
     const searchBoxRef = useRef<any>()
     const inputBoxRef = useRef<any>()
 
+    // variables
     const maxNumberOfOptions = 7
     const imageIconLoader = 'https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif'
     const imageIconTick = `https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Yes_Check_Circle.svg/240px-Yes_Check_Circle.svg.png`
     const imageIconGlobe = `https://upload.wikimedia.org/wikipedia/commons/e/e4/Globe.png`
 
 
-
-    function handleKeyPress(event: React.KeyboardEvent<HTMLElement>): void {
-        const keyPressed = event.code
-
-        const keyEventFunctions = {
-            arrowUp: () => {
-                if (cityOptionWithFocus > 0) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus-1)
-            },
-            arrowDown: () => {
-                if (cityOptionWithFocus < maxNumberOfOptions-1) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus+1)
-            },
-            enter: () => {
-                const keyboardSelectedCityObject = citiesList[cityOptionWithFocus]
-
-                setChosenCity(keyboardSelectedCityObject)
-                setInputLetters(keyboardSelectedCityObject.label)
-                setOptionsVisible(false)
-            },
-            escape: () => {
-                setOptionsVisible(false)
-                searchBoxRef.current.blur()                
-            },
-            other: () => {}
-        }
-
-        keyPressed === 'ArrowUp'    ? keyEventFunctions.arrowUp() :
-        keyPressed === 'ArrowDown'  ? keyEventFunctions.arrowDown() :
-        keyPressed === 'Enter'      ? keyEventFunctions.enter() : 
-        keyPressed === 'Escape'     ? keyEventFunctions.escape() : keyEventFunctions.other()
-    }
-
+    // handle keyboard navigation
     useEffect(() => {
         inputBoxRef.current.focus()
     }, [])
@@ -86,8 +59,22 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ cityOptionWithFocus ])
 
+    // update inputbox icons & Letter-Casing accoring to current state
+    useEffect(() => {
+        (inputLetters === chosenCity?.label)
+            ? setShowGreenTick(true)
+            : setShowGreenTick(false)
+        
+        if (inputLetters.length > 3 && inputLetters !== chosenCity?.label) {
+            setShowApiCallLoaderImage(true);
+        }
+        if (inputLetters.charAt(0) !== inputLetters.charAt(0).toUpperCase()) {
+            setInputLetters((old) => old.charAt(0).toUpperCase())
+        }
+    }, [ inputLetters, chosenCity?.label ])
 
-    // get list of cities from remote api
+
+    // api call -> list of cities
     useEffect(() => {
         if (lettersReadyForApiCall.length > 3) {
             (async function(): Promise<ICityDetails[]> {
@@ -118,29 +105,36 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ lettersReadyForApiCall ])
 
-    // update UI of inputbox accoring to current state
-    useEffect(() => {
-        if (inputLetters.charAt(0) !== inputLetters.charAt(0).toUpperCase()) {
-            setInputLetters((old) => old.charAt(0).toUpperCase())
-        }
-        if (inputLetters.length > 3 && inputLetters !== chosenCity?.label) {
-            setShowApiCallLoaderImage(true);
-        }
-        if (inputLetters !== chosenCity?.label) {
-            setShowGreenTick(false)
-        }
-        if (chosenCity?.label === inputLetters) {
-            setShowGreenTick(true)
-        }
-    }, [ inputLetters, chosenCity?.label ])
-
 
     // DOM event handlers
-    function handleInputLettersChange(event: React.ChangeEvent<HTMLInputElement>): void {        
-        setInputLetters(event.target.value)
-        if (inputLetters.length < 5) {
-            setOptionsVisible(false)
+    function handleKeyPress(event: React.KeyboardEvent<HTMLElement>): void {
+        const keyPressed = event.code
+
+        const keyEventFunctions = {
+            arrowUp: () => {
+                if (cityOptionWithFocus > 0) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus-1)
+            },
+            arrowDown: () => {
+                if (cityOptionWithFocus < maxNumberOfOptions-1) setCityOptionWithFocus((cityOptionWithFocus) => cityOptionWithFocus+1)
+            },
+            enter: () => {
+                const keyboardSelectedCityObject = citiesList[cityOptionWithFocus]
+
+                setChosenCity(keyboardSelectedCityObject)
+                setInputLetters(keyboardSelectedCityObject.label)
+                setOptionsVisible(false)
+            },
+            escape: () => {
+                setOptionsVisible(false)
+                searchBoxRef.current.blur()                
+            },
+            other: () => {}
         }
+
+        keyPressed === 'ArrowUp'    ? keyEventFunctions.arrowUp() :
+        keyPressed === 'ArrowDown'  ? keyEventFunctions.arrowDown() :
+        keyPressed === 'Enter'      ? keyEventFunctions.enter() : 
+        keyPressed === 'Escape'     ? keyEventFunctions.escape() : keyEventFunctions.other()
     }
 
     function handleSetChosenCity(event: any): void {
@@ -157,6 +151,13 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         setOptionsVisible(false)
 
         console.log(cityOptionElementRefs.current[1].current)
+    }
+
+    function handleInputLettersChange(event: React.ChangeEvent<HTMLInputElement>): void {        
+        setInputLetters(event.target.value)
+        if (inputLetters.length < 5) {
+            setOptionsVisible(false)
+        }
     }
 
 
