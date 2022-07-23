@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import SearchBox from './SearchBox';
 import SearchBoxCustom from './SearchBoxCustom';
 import Forecast from './Forecast';
 

@@ -54,17 +54,6 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     }, [ optionsVisible ])
 
     useEffect(() => {
-        if (citiesList.length === 1) {
-console.log(1)
-            const onlyCity = citiesList[0]
-            setChosenCity(onlyCity)
-            setInputLetters(onlyCity.label)
-            setShowApiCallLoaderImage(false)
-            setShowGreenTick(true)
-        }
-    }, citiesList)
-
-    useEffect(() => {
         if (cityOptionElementRefs.current[cityOptionWithFocus].current) {
             cityOptionElementRefs.current[cityOptionWithFocus].current.style.backgroundColor='#f5f5f5'
         }
@@ -83,7 +72,6 @@ console.log(1)
             setInputLetters((old) => old.charAt(0).toUpperCase())
         }
     }, [ inputLetters, chosenCity?.label ])
-
 
     // api call -> list of cities
     useEffect(() => {
@@ -119,8 +107,6 @@ console.log(1)
 
     // pass up chosenCity to other component for weather forecast
     useEffect(() => {
-        console.log(`[ chosenCity, onSearchBoxUpdate ]`)
-        console.log(chosenCity) //    <<<<<------- only  .label  on chosenCity populated
         if (chosenCity?.lat && chosenCity?.lon) {
             onSearchBoxUpdate(chosenCity)
         }
