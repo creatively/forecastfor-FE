@@ -12,7 +12,7 @@ interface ICityDetails {
 }
 
 interface IForecastProps {
-    cityDetailsProp: (cityDetails: ICityDetails) => void
+    cityDetailsProp: (cityDetails: ICityDetails | undefined) => void
 }
 
 
@@ -22,12 +22,14 @@ export default function Main() {
     function onSearchBoxUpdate(chosenCityDetails: ICityDetails) {
         setCityDetails(chosenCityDetails)
         console.log(`>>>> ${chosenCityDetails?.label}`)
+        console.log(`>>>> ${chosenCityDetails?.lat}`)
+        console.log(`>>>> ${chosenCityDetails?.lon}`)
     }
 
     return (
-        <>
+        <div className="forecast-container">
             <SearchBoxCustom onSearchBoxUpdate={onSearchBoxUpdate} />
-            <Forecast cityDetails={cityDetails}/>
-        </>
+            { cityDetails ? <Forecast cityDetails={cityDetails}/> : `` }
+        </div>
     )
 }

@@ -15,11 +15,11 @@ interface ICityDetails {
 }
 
 interface IForecastProps {
-    cityDetails :{ cityDetails: ICityDetails }
+    cityDetails: ICityDetails
 }
 
 
-export default function Forecast({ label, lat, lon }: any) {
+export default function Forecast({ cityDetails }: IForecastProps) {
 
     // generic
     const [ loader, setLoader ] = useState(false)
@@ -31,43 +31,39 @@ export default function Forecast({ label, lat, lon }: any) {
 
     // onload
     useEffect(() => {
-
-        /*
-        NEXT: Need to link the incoming changes in 
-            label/lat/lon with the API call
-        */
-        console.log(`logged from useEffect in Forecast.tsx`)
-
-        //getForecast()
-    }, [ lat ]);
+        console.log(`---useEffect in Forecast.tsx`)
+        console.log(`lat = ${cityDetails.lat}`)
+        console.log(`lon = ${cityDetails.lon}`)
+        if (cityDetails.lat && cityDetails.lon) getForecast()
+    }, [ cityDetails ]);
 
 
     // ---------------- API :  LATLON --> WEATHER -----------------
     function getForecast() {
         
-        if (lat !== `` && lon !== ``) {
-            const apiUrl: string = `http://localhost:8080/forecast?lat=${lat}&lon=${lon}`;
+        console.log(`---pre-api call - lat=${cityDetails.lat}, lon=${cityDetails.lon}`)
 
-            (async () => {
-                setLoader(true)
-                try {
-                    const response = await axios.get(apiUrl)
-                    setData(response.data)
-                    setLoader(false)
-                } catch (error) {
-                    console.log(error || 'Error : The local API was unable to get data from the remote weather API')
-                    setLoader(false)
-                    setApiError(true)
-                }
-            })()
-        }
+        const apiUrl: string = `http://localhost:8080/forecast?lat=${cityDetails.lat}&lon=${cityDetails.lon}`;
+
+        (async () => {
+            setLoader(true)
+            try {
+                const response = await axios.get(apiUrl)
+                setData(response.data)
+                setTimeout(() => setLoader(false), 700)
+            } catch (error) {
+                console.log(error || 'Error : The local API was unable to get data from the remote weather API')
+                setTimeout(() => setLoader(false), 700)
+                setApiError(true)
+            }
+        })()
+        
     }
     // -------------------------APIs END----------------------------
 
     
     return (
         <>
-            <h1>Forecast</h1>
             { loader ? <Loader/> : ``}
             { apiError ? <div>....ERROR CALLING API....</div> : `` }
             { !apiError && !loader ? <Days data={data} /> : `` }

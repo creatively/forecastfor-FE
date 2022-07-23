@@ -20,7 +20,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
 
     // useStates
     const [ inputLetters, setInputLetters ] = useState<string>(``)
-    const [ lettersReadyForApiCall ] = useDebounce(inputLetters, 1000)
+    const [ lettersReadyForCityApiCall ] = useDebounce(inputLetters, 1000)
     const [ citiesList, setCitiesList ] = useState<ICityDetails[]>([])
     const [ chosenCity, setChosenCity ] = useState<ICityDetails>()
     const [ optionsVisible, setOptionsVisible ] = useState<boolean>(false)
@@ -54,6 +54,17 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     }, [ optionsVisible ])
 
     useEffect(() => {
+        if (citiesList.length === 1) {
+console.log(1)
+            const onlyCity = citiesList[0]
+            setChosenCity(onlyCity)
+            setInputLetters(onlyCity.label)
+            setShowApiCallLoaderImage(false)
+            setShowGreenTick(true)
+        }
+    }, citiesList)
+
+    useEffect(() => {
         if (cityOptionElementRefs.current[cityOptionWithFocus].current) {
             cityOptionElementRefs.current[cityOptionWithFocus].current.style.backgroundColor='#f5f5f5'
         }
@@ -65,7 +76,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
             ? setShowGreenTick(true)
             : setShowGreenTick(false)
         
-        if (inputLetters.length > 3 && inputLetters !== chosenCity?.label) {
+        if (inputLetters.length > 2 && inputLetters !== chosenCity?.label) {
             setShowApiCallLoaderImage(true);
         }
         if (inputLetters.charAt(0) !== inputLetters.charAt(0).toUpperCase()) {
@@ -76,11 +87,11 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
 
     // api call -> list of cities
     useEffect(() => {
-        if (lettersReadyForApiCall.length > 3) {
+        if (lettersReadyForCityApiCall.length > 2) {
             (async function(): Promise<ICityDetails[]> {
                 try {
                     const response = await fetch(
-                        `http://geodb-free-service.wirefreethought.com/v1/geo/cities?minPopulation=40000&namePrefix=${lettersReadyForApiCall}&hateoasMode=false&limit=${maxNumberOfOptions}&offset=0&sort=name`
+                        `http://geodb-free-service.wirefreethought.com/v1/geo/cities?minPopulation=40000&namePrefix=${lettersReadyForCityApiCall}&hateoasMode=false&limit=${maxNumberOfOptions}&offset=0&sort=name`
                     )
                     const data = await response.json();
                     return data.data.map((cityOption: any) => {
@@ -100,10 +111,20 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
             .then((resultsArray) => {
                 setShowApiCallLoaderImage(false);
                 setOptionsVisible(true)
+                console.log(resultsArray)
                 setCitiesList(resultsArray)
             })
         }
-    }, [ lettersReadyForApiCall ])
+    }, [ lettersReadyForCityApiCall ])
+
+    // pass up chosenCity to other component for weather forecast
+    useEffect(() => {
+        console.log(`[ chosenCity, onSearchBoxUpdate ]`)
+        console.log(chosenCity) //    <<<<<------- only  .label  on chosenCity populated
+        if (chosenCity?.lat && chosenCity?.lon) {
+            onSearchBoxUpdate(chosenCity)
+        }
+    }, [ chosenCity, onSearchBoxUpdate ])
 
 
     // DOM event handlers
@@ -138,9 +159,9 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     }
 
     function handleSetChosenCity(event: any): void {
-        const liElement: HTMLLIElement = event.target
+        const liElement: HTMLLIElement = event.target.parentNode
         const chosenCity: ICityDetails = {
-            label: liElement.textContent || ``,
+            label: liElement.querySelector('.label')?.textContent || ``,
             lat: liElement.getAttribute('data-lat') || ``,
             lon: liElement.getAttribute('data-lon') || ``,
             flag: liElement.querySelector('.flag')?.getAttribute('src') || ``,
@@ -150,7 +171,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         setInputLetters(chosenCity.label)
         setOptionsVisible(false)
 
-        console.log(cityOptionElementRefs.current[1].current)
+        console.log(cityOptionElementRefs.current[0].current)
     }
 
     function handleInputLettersChange(event: React.ChangeEvent<HTMLInputElement>): void {        

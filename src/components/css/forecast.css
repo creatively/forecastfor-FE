@@ -1,17 +1,22 @@
+.forecast-container {
+    max-width: 510px;
+    margin: 0 auto;
+}
 
 .forecast-days {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .forecast-day { 
     position: relative;
     background: #fff;
     flex: 1;
-    max-width: 100px;
+width: 100%;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
 
