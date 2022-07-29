@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Loader } from './Loader'
-import { useEffectOnce } from '../custom-hooks/useEffectOnce'
+import { useEffectOnce } from '../others-hooks/useEffectOnce'
 import { DataDay } from '../interfaces/ForecastInterfaces'
 import axios from 'axios'
 import Days from './Days'
@@ -21,15 +21,13 @@ interface IForecastProps {
 
 export default function Forecast({ cityDetails }: IForecastProps) {
 
-    // generic
+    // set up variables
     const [ loader, setLoader ] = useState(false)
     const [ apiError, setApiError ] = useState(false)
-
-    // getForecast
     const [ data, setData ] = useState<DataDay[]>([])
 
 
-    // onload
+    // if the component is mounted, and a city details object has been populated, then call the api function
     useEffect(() => {
         console.log(`---useEffect in Forecast.tsx`)
         console.log(`lat = ${cityDetails.lat}`)
@@ -38,7 +36,7 @@ export default function Forecast({ cityDetails }: IForecastProps) {
     }, [ cityDetails ]);
 
 
-    // ---------------- API :  LATLON --> WEATHER -----------------
+    // call the city-->forecast api
     function getForecast() {
         
         console.log(`---pre-api call - lat=${cityDetails.lat}, lon=${cityDetails.lon}`)
@@ -59,9 +57,8 @@ export default function Forecast({ cityDetails }: IForecastProps) {
         })()
         
     }
-    // -------------------------APIs END----------------------------
 
-    
+    // render component acoording to state
     return (
         <>
             { loader ? <Loader/> : ``}

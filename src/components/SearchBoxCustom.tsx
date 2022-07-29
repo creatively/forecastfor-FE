@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDebounce } from 'use-debounce';
 import randomKey from './RandomKey'
+import { useEffectOnce } from '../others-hooks/useEffectOnce';
 import './css/search-box-custom.css'
 
 interface ICityDetails {
@@ -44,22 +45,19 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     const imageIconGlobe = `https://upload.wikimedia.org/wikipedia/commons/e/e4/Globe.png`
 
 
-    // handle keyboard navigation
-    useEffect(() => {
+    // if this component mounts, focus on the inputbox
+    useEffectOnce(() => {
         inputBoxRef.current.focus()
-    }, [])
+    })
 
-    useEffect(() => {
-        if (optionsVisible) setCityOptionWithFocus(0)
-    }, [ optionsVisible ])
-
+    // if keyboard navigates to a city, change it's highlight state 
     useEffect(() => {
         if (cityOptionElementRefs.current[cityOptionWithFocus].current) {
             cityOptionElementRefs.current[cityOptionWithFocus].current.style.backgroundColor='#f5f5f5'
         }
     }, [ cityOptionWithFocus ])
 
-    // update inputbox icons & Letter-Casing accoring to current state
+    // if a city is chosen, set an appropriate inputbox icon & update inputbox's Letter-Casing
     useEffect(() => {
         (inputLetters === chosenCity?.label)
             ? setShowGreenTick(true)
@@ -73,7 +71,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ inputLetters, chosenCity?.label ])
 
-    // api call -> list of cities
+    // if 3+ letters of a city have been typed in inputbox, make an api call to autocomplete a list of cities
     useEffect(() => {
         if (lettersReadyForCityApiCall.length > 2) {
             (async function(): Promise<ICityDetails[]> {
@@ -105,7 +103,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ lettersReadyForCityApiCall ])
 
-    // pass up chosenCity to other component for weather forecast
+    // if an API call has got a city's latitude & longitude, then cal; parent component's callback function
     useEffect(() => {
         if (chosenCity?.lat && chosenCity?.lon) {
             onSearchBoxUpdate(chosenCity)
@@ -113,7 +111,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     }, [ chosenCity, onSearchBoxUpdate ])
 
 
-    // DOM event handlers
+    // when keys are pressed, act on any relevant keys
     function handleKeyPress(event: React.KeyboardEvent<HTMLElement>): void {
         const keyPressed = event.code
 
@@ -144,6 +142,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         keyPressed === 'Escape'     ? keyEventFunctions.escape() : keyEventFunctions.other()
     }
 
+    // when a city is selected, create and set it's city details object & update the UI
     function handleSetChosenCity(event: any): void {
         const liElement: HTMLLIElement = event.target.parentNode
         const chosenCity: ICityDetails = {
@@ -160,6 +159,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         console.log(cityOptionElementRefs.current[0].current)
     }
 
+    // when typed letters fall below 5, then hide the autocomplete list
     function handleInputLettersChange(event: React.ChangeEvent<HTMLInputElement>): void {        
         setInputLetters(event.target.value)
         if (inputLetters.length < 5) {
@@ -167,7 +167,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }
 
-
+    // render the component
     return (
         <div className="search-box-custom" ref={searchBoxRef}>
             <input className="inputbox"
