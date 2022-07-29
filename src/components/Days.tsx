@@ -1,12 +1,9 @@
 import { useState } from 'react'
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DataDay, Data3Hrs } from "../interfaces/ForecastInterfaces";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ColumnDay from "./ColumnDay";
 import Column3Hrs from "./Column3Hrs";
 import { useEffectOnce } from 'react-use';
 
-const c = (txt: any) => console.log(txt)
 
 const random = (): string => (Math.random() + 1).toString(36).substring(7)
 

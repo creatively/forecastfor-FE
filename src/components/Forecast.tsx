@@ -29,17 +29,12 @@ export default function Forecast({ cityDetails }: IForecastProps) {
 
     // if the component is mounted, and a city details object has been populated, then call the api function
     useEffect(() => {
-        console.log(`---useEffect in Forecast.tsx`)
-        console.log(`lat = ${cityDetails.lat}`)
-        console.log(`lon = ${cityDetails.lon}`)
         if (cityDetails.lat && cityDetails.lon) getForecast()
     }, [ cityDetails ]);
 
 
     // call the city-->forecast api
     function getForecast() {
-        
-        console.log(`---pre-api call - lat=${cityDetails.lat}, lon=${cityDetails.lon}`)
 
         const apiUrl: string = `http://localhost:8080/forecast?lat=${cityDetails.lat}&lon=${cityDetails.lon}`;
 

@@ -20,9 +20,6 @@ export default function Main() {
 
     function onSearchBoxUpdate(chosenCityDetails: ICityDetails) {
         setCityDetails(chosenCityDetails)
-        console.log(`>>>> ${chosenCityDetails?.label}`)
-        console.log(`>>>> ${chosenCityDetails?.lat}`)
-        console.log(`>>>> ${chosenCityDetails?.lon}`)
     }
 
     return (

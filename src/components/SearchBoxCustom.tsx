@@ -97,7 +97,6 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
             .then((resultsArray) => {
                 setShowApiCallLoaderImage(false);
                 setOptionsVisible(true)
-                console.log(resultsArray)
                 setCitiesList(resultsArray)
             })
         }
@@ -155,8 +154,6 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         setChosenCity(chosenCity)
         setInputLetters(chosenCity.label)
         setOptionsVisible(false)
-
-        console.log(cityOptionElementRefs.current[0].current)
     }
 
     // when typed letters fall below 5, then hide the autocomplete list

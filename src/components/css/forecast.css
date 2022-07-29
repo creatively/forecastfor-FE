@@ -16,12 +16,10 @@
     position: relative;
     background: #fff;
     flex: 1;
-width: 100%;
+    width: 100%;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
-
 }
-
     .day-name {
         width: 100%;
         display: grid;
