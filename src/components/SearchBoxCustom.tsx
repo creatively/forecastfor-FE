@@ -45,19 +45,19 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
     const imageIconGlobe = `https://upload.wikimedia.org/wikipedia/commons/e/e4/Globe.png`
 
 
-    // if this component mounts, focus on the inputbox
+    // when this component mounts, focus on the inputbox
     useEffectOnce(() => {
         inputBoxRef.current.focus()
     })
 
-    // if keyboard navigates to a city, change it's highlight state 
+    // when a user's keyboard navigates to a city, change it's highlight state 
     useEffect(() => {
         if (cityOptionElementRefs.current[cityOptionWithFocus].current) {
             cityOptionElementRefs.current[cityOptionWithFocus].current.style.backgroundColor='#f5f5f5'
         }
     }, [ cityOptionWithFocus ])
 
-    // if a city is chosen, set an appropriate inputbox icon & update inputbox's Letter-Casing
+    // when a city is chosen, set an appropriate inputbox icon & update inputbox's Letter-Casing
     useEffect(() => {
         (inputLetters === chosenCity?.label)
             ? setShowGreenTick(true)
@@ -71,7 +71,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ inputLetters, chosenCity?.label ])
 
-    // if 3+ letters of a city have been typed in inputbox, make an api call to autocomplete a list of cities
+    // when 3+ letters of a city have been typed in inputbox, make an api call to autocomplete a list of cities
     useEffect(() => {
         if (lettersReadyForCityApiCall.length > 2) {
             (async function(): Promise<ICityDetails[]> {
@@ -102,7 +102,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
         }
     }, [ lettersReadyForCityApiCall ])
 
-    // if an API call has got a city's latitude & longitude, then cal; parent component's callback function
+    // when an API call has got a city's latitude & longitude, then call the parent component's callback function
     useEffect(() => {
         if (chosenCity?.lat && chosenCity?.lon) {
             onSearchBoxUpdate(chosenCity)
@@ -174,9 +174,9 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
                 onKeyDown={handleKeyPress} 
             />
 
-            <div className="loader-container">
+            <div className="inputbox-loader-container">
                 {(showApiCallLoaderImage || showGreenTick)
-                    ? <img className='loader-image'
+                    ? <img className='inputbox-loader-image'
                         alt={
                             showApiCallLoaderImage
                                 ? `loading city options` :
@@ -184,7 +184,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
                                 ? `city selected` : 
                             ``
                         }
-                        height="24" width="24" 
+                        height="100" width="24" 
                         src={
                             showApiCallLoaderImage
                                 ? imageIconLoader :
@@ -192,7 +192,7 @@ export default function SearchBoxCustom({ onSearchBoxUpdate }: ISearchBoxProps) 
                                 ? imageIconTick : 
                             imageIconGlobe
                         }/>
-                    :   <img className='loader-image' alt='type here' height="24" width="24" src={imageIconGlobe} />
+                    :   <img className='inputbox-loader-image' alt='type here' height="24" width="24" src={imageIconGlobe} />
                 }
             </div>
 

@@ -1,7 +1,7 @@
 export function Loader() {
     return (
-        <div className="loader-container">
-            <img src='https://media.giphy.com/media/jAYUbVXgESSti/giphy.gif' alt="loading icon" height="100" width="170" />
+        <div className="forecast-loader-container">
+            <img className="forecast-loader" src='https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif' alt="loading icon" height="36" width="36" />
         </div>
     )
 }

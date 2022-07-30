@@ -43,17 +43,18 @@ export default function Forecast({ cityDetails }: IForecastProps) {
             try {
                 const response = await axios.get(apiUrl)
                 setData(response.data)
-                setTimeout(() => setLoader(false), 700)
+                setTimeout(() => setLoader(false), 1200)
             } catch (error) {
                 console.log(error || 'Error : The local API was unable to get data from the remote weather API')
-                setTimeout(() => setLoader(false), 700)
+                setTimeout(() => setLoader(false), 1200)
                 setApiError(true)
             }
         })()
         
     }
 
-    // render component acoording to state
+
+    // render component according to state
     return (
         <>
             { loader ? <Loader/> : ``}
