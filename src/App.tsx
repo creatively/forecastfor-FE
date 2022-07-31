@@ -8,6 +8,7 @@ export default function App() {
   return (
     <div className="App">
       <Header />
+      <h1>Forecast for</h1>
       <Main />
       <Footer />
     </div>
