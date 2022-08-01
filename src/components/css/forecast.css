@@ -3,9 +3,15 @@ body {
     font-family: Cambria, Georgia, serif;
 }
 
+h1 {
+    font-size: 1.9em;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
 .forecast-container {
     max-width: 510px;
-    margin: 9px auto;
+    margin: 0 auto;
 }
 
 .forecast-days {
@@ -49,6 +55,7 @@ body {
         height: 191px;
         z-index: 1;
         bottom: 0;
+        border-right: 1px solid #ccc;
     }
 
     .forecast-three-hourly-column {
@@ -56,7 +63,7 @@ body {
         margin: 0;
         height: 100px;
         border-bottom: 8px solid;
-        border-right: 2px solid #f6f6f6;
+        border-right: 2px solid #f1f1f1;
     }
         .whiteBg {
             background: white;
